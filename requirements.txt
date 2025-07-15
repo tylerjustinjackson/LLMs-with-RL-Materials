@@ -10,7 +10,7 @@ accelerate
 
 # Optimization / acceleration
 bitsandbytes
-flash-attn
+# flash-attn
 
 # General-purpose packages
 numpy
