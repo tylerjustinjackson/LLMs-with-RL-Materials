@@ -1,0 +1,23 @@
+# Core packages
+torch
+
+# HF ecosystem
+transformers
+datasets
+peft
+huggingface-hub
+accelerate
+
+# Optimization / acceleration
+bitsandbytes
+flash-attn
+
+# General-purpose packages
+numpy
+matplotlib
+
+# Reinforcement learning
+gymnasium
+
+# Ollama Python client (if available via pip)
+ollama
