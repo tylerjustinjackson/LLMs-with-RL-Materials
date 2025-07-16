@@ -12,7 +12,7 @@ Original User Prompt: "Explain the concept of quantum entanglement in simple ter
 --------------------------------------------------
 
 Candidate Response #1:
-  Critic Score: 1.0/5
+  Critic Score: 3.0/5
   User Score: 2.0/5
   Final Score Used for Selection: 2.0/5
   Response:
@@ -74,7 +74,7 @@ Does this explanation help you understand quantum entanglement better?
 --------------------------------------------------
 
 Candidate Response #3:
-  Critic Score: 1.0/5
+  Critic Score: 4.0/5
   User Score: 5.0/5
   Final Score Used for Selection: 5.0/5
   Response:
@@ -101,7 +101,7 @@ Quantum entanglement is a fundamental aspect of quantum mechanics, and it's been
              RLHF Chosen Best Response            
 ==================================================
 Chosen Response Final Score: 5.0/5
-Chosen Response Critic Score: 1.0/5
+Chosen Response Critic Score: 2.0/5
 Chosen Response User Score: 5.0/5
 
 Response Content:
