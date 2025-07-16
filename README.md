@@ -3,7 +3,6 @@
 Welcome to the **Reinforcement Learning with Large Language Models Learning Experience**! This codebase is designed to help you learn about the intersection of Reinforcement Learning (RL) and Large Language Models (LLMs) using Python projects.
 
 - Lead Instructor: Tyler Jackson
-
 - Technical Support Lead: Joseph Jabour
 ---
 
