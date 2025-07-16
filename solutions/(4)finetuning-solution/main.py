@@ -2,37 +2,7 @@ import ollama
 import sys
 import subprocess
 import os
-
-# --- Start: Handle import_debug.py dependency ---
-try:
-    from import_debug import install_package
-except ImportError:
-    print(
-        "Warning: import_debug.py not found. Providing a basic fallback for install_package."
-    )
-
-    def install_package(package):
-        """
-        Basic fallback function to install a pip package if import_debug.py is not available.
-        """
-        try:
-            print(f"Attempting to install '{package}' using pip...")
-            subprocess.run(
-                [sys.executable, "-m", "pip", "install", package],
-                check=True,
-                capture_output=True,
-                text=True,
-            )
-            print(f"Successfully installed {package}.")
-        except subprocess.CalledProcessError as e:
-            print(f"Failed to install {package}: {e}")
-            print(f"Stdout: {e.stdout}")
-            print(f"Stderr: {e.stderr}")
-            print("Please install it manually: pip install {package}")
-            sys.exit(1)
-
-
-# --- End: Handle import_debug.py dependency ---
+from import_debug import install_package
 
 
 def create_ollama_modelfile_and_model(base_model_name):

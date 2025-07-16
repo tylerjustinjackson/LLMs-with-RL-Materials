@@ -1,26 +1,8 @@
-import subprocess
-import sys
 import ollama
 import re
 import time
 import os
-
-
-def install_package(package):
-    """
-    Installs a Python package using pip if it's not already installed.
-    """
-    try:
-        __import__(package)
-        print(f"{package} is already installed.")
-    except ImportError:
-        print(f"{package} not found, installing...")
-        try:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-            print(f"Successfully installed {package}.")
-        except subprocess.CalledOpenError as e:
-            print(f"Error installing {package}: {e}")
-            sys.exit(1)
+from import_debug import install_package
 
 
 def get_llm_response(
@@ -94,11 +76,11 @@ def get_reward_from_critic(
     """
     critic_prompt = f"""
     You are an AI assistant evaluating the quality of responses.
-    Given the original prompt: "{original_prompt}"
+    Given the original prompt: "{FIXME}"
 
     And the candidate response:
     ---
-    {candidate_response}
+    {FIXME}
     ---
 
     Rate the candidate response on a scale of 1 to 5, where:
@@ -116,7 +98,7 @@ def get_reward_from_critic(
     # print(f"Candidate Response: {candidate_response[:100]}...") # Too verbose for each eval
 
     critic_output = get_llm_response(
-        critic_model, critic_prompt, temperature=0.0, stream=False
+        FIXME, critic_prompt, temperature=0.0, stream=False
     )  # Use low temp for critic for consistent rating
 
     # Try to extract the numerical rating
@@ -245,9 +227,9 @@ def run_rlhf_example(policy_model: str = "llama3.2", critic_model: str = "llama3
 
     print(f"\n==================================================")
     print(f"Starting RLHF Demonstration with Ollama")
-    print(f"Policy Model: {policy_model}")
-    print(f"Critic Model: {critic_model}")
-    print(f'User Prompt: "{user_prompt}"')
+    print(f"Policy Model: {FIXME}")
+    print(f"Critic Model: {FIXME}")
+    print(f'User Prompt: "{FIXME}"')
     print(f"==================================================\n")
 
     # Step 1: Generate multiple candidate responses from the policy model
@@ -265,10 +247,10 @@ def run_rlhf_example(policy_model: str = "llama3.2", critic_model: str = "llama3
         print(f"\nProcessing Candidate Response #{i+1}:")
 
         # Get critic's score
-        critic_score = get_reward_from_critic(critic_model, user_prompt, response_text)
+        critic_score = FIXME(critic_model, user_prompt, response_text)
 
         # Get user's score
-        user_score = get_user_rating(response_text, critic_score, user_prompt)
+        user_score = FIXME(response_text, critic_score, user_prompt)
 
         # Determine the final score for selection (user's score overrides critic's if provided)
         final_score = user_score if user_score is not None else critic_score
@@ -308,11 +290,11 @@ def run_rlhf_example(policy_model: str = "llama3.2", critic_model: str = "llama3
 
     # Step 4: Generate the report
     report_data = {
-        "policy_model": policy_model,
-        "critic_model": critic_model,
-        "user_prompt": user_prompt,
-        "scored_responses": scored_responses,
-        "best_response_info": best_response_info,
+        "policy_model": FIXME,
+        "critic_model": FIXME,
+        "user_prompt": FIXME,
+        "scored_responses": FIXME,
+        "best_response_info": FIXME,
     }
     generate_report(report_data)
 

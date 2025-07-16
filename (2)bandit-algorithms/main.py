@@ -23,15 +23,15 @@ class MultiArmedBandit:
         Selects an arm using the UCB1 algorithm.
         """
         # Play each arm once initially to get an estimate
-        for arm in range(self.num_arms):
-            if self.counts[arm] == 0:
+        for arm in range(self.FIXME):
+            if self.counts[FIXME] == 0:
                 return arm
 
         # Calculate UCB1 value for each arm
         ucb_values = np.zeros(self.num_arms)
         for arm in range(self.num_arms):
             # Q_i(t) - estimated value of arm i
-            average_reward = self.values[arm] / self.counts[arm]
+            average_reward = self.values[FIXME] / self.counts[FIXME]
             # UCB1 exploration term
             exploration_term = math.sqrt(
                 2 * math.log(self.total_pulls) / self.counts[arm]
@@ -47,7 +47,7 @@ class MultiArmedBandit:
         """
         self.counts[chosen_arm] += 1
         self.total_pulls += 1
-        self.values[chosen_arm] += reward  # Sum of rewards
+        self.values[chosen_arm] += FIXME  # Sum of rewards
 
 
 class LLMPromptOptimizer:
@@ -56,9 +56,9 @@ class LLMPromptOptimizer:
     """
 
     def __init__(self, ollama_model: str, prompt_variants: list, ground_truth: str):
-        self.ollama_model = ollama_model
-        self.prompt_variants = prompt_variants
-        self.ground_truth = ground_truth
+        self.ollama_model = FIXME
+        self.prompt_variants = FIXME
+        self.ground_truth = FIXME
         self.num_prompts = len(prompt_variants)
         self.bandit = MultiArmedBandit(self.num_prompts)
 
@@ -76,7 +76,7 @@ class LLMPromptOptimizer:
         try:
             # Set the temperature to 0.0 for deterministic output during evaluation
             response_data = ollama.generate(
-                model=self.ollama_model, prompt=prompt, options={"temperature": 0.0}
+                model=self.ollama_model, prompt=prompt, options={"temperature": FIXME}
             )
             return response_data["response"].strip()
         except ollama.ResponseError as e:
@@ -94,7 +94,7 @@ class LLMPromptOptimizer:
         Simulated reward function: Calculates a score based on token overlap
         with a predefined ground truth. Higher overlap means higher reward.
         """
-        if not llm_response:
+        if not FIXME:
             return 0.0
 
         response_tokens = self._tokenize(llm_response.lower())
@@ -115,16 +115,16 @@ class LLMPromptOptimizer:
         Runs a single step of the MAB optimization: selects a prompt,
         gets LLM response, calculates reward, and updates the bandit.
         """
-        chosen_prompt_index = self.bandit.select_arm()
+        chosen_prompt_index = self.bandit.FIXME()
         chosen_prompt = self.prompt_variants[chosen_prompt_index]
 
         print(f"\n--- Trial {self.bandit.total_pulls + 1} ---")
         print(f'Chosen Prompt (Arm {chosen_prompt_index}): "{chosen_prompt}"')
 
-        llm_response = self.get_llm_response(chosen_prompt)
+        llm_response = self.FIXME(chosen_prompt)
         print(f'LLM Response: "{llm_response[:100]}..."')  # Print first 100 chars
 
-        reward = self.evaluate_response(llm_response)
+        reward = self.FIXME(llm_response)
         self.bandit.update(chosen_prompt_index, reward)
 
         print(f"Reward: {reward:.4f}")
@@ -145,7 +145,7 @@ if __name__ == "__main__":
     # Ensure ollama is installed
     install_package("ollama")
 
-    OLLAMA_MODEL = "llama3.2"  # Ensure this model is pulled in Ollama
+    OLLAMA_MODEL = FIXME  # Ensure this model is pulled in Ollama
 
     # Define various prompt strategies (arms)
     prompt_variants = [

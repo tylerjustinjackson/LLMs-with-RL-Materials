@@ -26,7 +26,7 @@ def main():
         # Let's try a simple generate call. Ollama will often attempt to pull
         # if the model isn't found when a generate request is made.
         print("Sending a test prompt to 'llama3.2'...")
-        response = ollama.generate(model="llama3.2", prompt="Why is the sky blue?")
+        response = ollama.generate(model=FIXME, prompt="Why is the sky blue?")
 
         print("\n--- Model Response ---")
         print(response["response"])
@@ -35,10 +35,10 @@ def main():
         # You can also stream responses for longer outputs
         print("\n--- Streaming Response Example ---")
         stream = ollama.generate(
-            model="llama3.2",
+            model=FIXME,
             prompt="Tell me a short story about a brave knight.",
-            stream=True,
-            # options={"temperature": 0.0},
+            stream=FIXME,
+            options={"temperature": FIXME},
         )
         for chunk in stream:
             print(chunk["response"], end="", flush=True)
@@ -55,4 +55,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    FIXME()

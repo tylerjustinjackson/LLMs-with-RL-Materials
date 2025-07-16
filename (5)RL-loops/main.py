@@ -68,7 +68,7 @@ class LLMOptimizerEnvironment:
                     model=self.model_name,
                     prompt=prompt_text,
                     stream=True,
-                    options={"temperature": 0.0},
+                    options={"temperature": FIXME},
                 )
                 for chunk in stream_gen:
                     full_response += chunk["response"]
@@ -78,7 +78,7 @@ class LLMOptimizerEnvironment:
                 response = ollama.generate(
                     model=self.model_name,
                     prompt=prompt_text,
-                    options={"temperature": 0.0},
+                    options={"temperature": FIXME},
                 )
                 return response["response"]
         except ollama.ResponseError as e:
@@ -141,24 +141,24 @@ class LLMOptimizerEnvironment:
 
         # 1. Reward for conciseness (penalize long answers)
         word_count = len(text.split())
-        if word_count < 50:
+        if word_count < FIXME:
             reward += 0.5  # Bonus for being concise
-        elif word_count > 150:
+        elif word_count > FIXME:
             reward -= 0.5  # Penalty for being too verbose
         else:
             reward += 0.1  # Small bonus for reasonable length
 
         # 2. Reward for mentioning key scientific terms for "Why is the sky blue?"
         if "rayleigh scattering" in text_lower:
-            reward += 1.0  # High reward for the core concept
+            reward += FIXME
         if "blue light" in text_lower and "scatter" in text_lower:
-            reward += 0.7  # Good for describing the mechanism
+            reward += FIXME
         if "wavelength" in text_lower:
-            reward += 0.3  # Important related concept
+            reward += FIXME
         if "atmosphere" in text_lower:
-            reward += 0.2  # Contextual term
+            reward += FIXME
         if "molecules" in text_lower or "particles" in text_lower:
-            reward += 0.2  # What scatters the light
+            reward += FIXME
 
         # 3. Penalize generic or incorrect answers / Ollama errors
         if (
@@ -166,9 +166,9 @@ class LLMOptimizerEnvironment:
             or "problem" in text_lower
             or "not found" in text_lower
         ):
-            reward -= 5.0  # Significant penalty for generation errors
+            reward -= FIXME  # Significant penalty for generation errors
         if "sun" not in text_lower and "light" not in text_lower:
-            reward -= 0.5  # Basic components of the explanation missing
+            reward -= FIXME  # Basic components of the explanation missing
 
         # Normalize and clip reward to a reasonable range (e.g., -2.0 to 2.0)
         # This helps keep rewards consistent and prevents extreme values.
@@ -257,15 +257,15 @@ def run_rl_optimization_loop(env, max_iterations=5):
         current_word_count = len(env.current_output.split())
 
         if (
-            current_reward < 0.5
+            current_reward < FIXME
         ):  # If reward is relatively low, try to add more scientific detail
             best_tool_for_this_step = "expand_scientific"
         elif (
-            current_reward >= 0.5 and current_word_count > 100
+            current_reward >= FIXME and current_word_count > FIXME
         ):  # If reward is decent but verbose, try to be concise
             best_tool_for_this_step = "concise"
         elif (
-            current_reward >= 1.0 and "example" not in env.current_output.lower()
+            current_reward >= FIXME and "example" not in env.current_output.lower()
         ):  # If already good, try adding an example
             best_tool_for_this_step = "add_example"
         else:  # Fallback: cycle through tools if no specific condition met
@@ -319,7 +319,7 @@ if __name__ == "__main__":
     )
     # Run the optimization loop for a few iterations
     rewards_sky_blue, outputs_sky_blue, history_sky_blue = run_rl_optimization_loop(
-        llm_env, max_iterations=5
+        llm_env, max_iterations=FIXME
     )
 
     print("\n--- Final Outputs for 'Why is the sky blue?' Optimization ---")
