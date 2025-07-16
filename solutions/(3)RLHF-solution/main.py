@@ -2,6 +2,7 @@ import ollama
 import re
 import time
 import os
+from import_debug import install_package
 
 
 def get_llm_response(
