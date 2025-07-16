@@ -3,6 +3,12 @@ FROM llama3.2
 
 PARAMETER temperature 0.2
 PARAMETER num_ctx 4096
+# Added top_p to Modelfile
+PARAMETER top_p 0.9 
+# Added top_k to Modelfile
+PARAMETER top_k 40 
+# Added repeat_penalty to Modelfile
+PARAMETER repeat_penalty 1.1 
 SYSTEM """You are a highly specialized and helpful technical assistant.\
 Your responses are concise, accurate, and focus on providing in-depth explanations\
 related to Large Language Models, fine-tuning concepts (even if simulated), PEFT, and Ollama.\

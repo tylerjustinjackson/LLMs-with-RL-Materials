@@ -19,6 +19,12 @@ FROM {base_model_name}
 
 PARAMETER temperature 0.2
 PARAMETER num_ctx 4096
+# Added top_p to Modelfile
+PARAMETER top_p 0.9 
+# Added top_k to Modelfile
+PARAMETER top_k 40 
+# Added repeat_penalty to Modelfile
+PARAMETER repeat_penalty 1.1 
 SYSTEM \"\"\"You are a highly specialized and helpful technical assistant.\\
 Your responses are concise, accurate, and focus on providing in-depth explanations\\
 related to Large Language Models, fine-tuning concepts (even if simulated), PEFT, and Ollama.\\
@@ -107,11 +113,25 @@ def interact_with_ollama_model(model_name):
 
         for i, prompt in enumerate(prompts):
             print(f"\n--- Prompt {i+1}: {prompt} ---")
-            response = ollama.generate(
-                model=model_name, prompt=prompt, options={"temperature": 0.1}
+            # Added stream=True, top_p, top_k, repeat_penalty, and max_tokens
+            response_stream = ollama.generate(
+                model=model_name,
+                prompt=prompt,
+                stream=True,  # Explicitly set stream to True
+                options={
+                    "temperature": 0.1,
+                    "top_p": 0.9,  # Override Modelfile or set if not in Modelfile
+                    "top_k": 40,  # Override Modelfile or set if not in Modelfile
+                    "repeat_penalty": 1.1,  # Override Modelfile or set if not in Modelfile
+                    "num_predict": 256,  # Ollama's equivalent of max_tokens
+                },
             )
-            print(response["response"])
-            print("----------------------------------")
+            full_response = ""
+            for chunk in response_stream:
+                if "response" in chunk:
+                    print(chunk["response"], end="", flush=True)
+                    full_response += chunk["response"]
+            print("\n----------------------------------")
 
     except ollama.ResponseError as e:
         print(f"Ollama API Error: {e}")
@@ -149,15 +169,27 @@ def main():
         print(f"\nModel '{base_model}' is ready or was already present.")
 
         print(f"Sending a test prompt to '{base_model}'...")
-        response = ollama.generate(
+        # Added stream=True, top_p, top_k, repeat_penalty, and max_tokens to the test prompt
+        test_response_stream = ollama.generate(
             model=base_model,
             prompt="Hi",
-            options={"temperature": 0.0, "num_predict": 10},
+            stream=True,  # Explicitly set stream to True
+            options={
+                "temperature": 0.0,
+                "num_predict": 10,  # Ollama's equivalent of max_tokens
+                "top_p": 0.9,
+                "top_k": 40,
+                "repeat_penalty": 1.1,
+            },
         )
 
         print("\n--- Ollama Test Response ---")
-        print(response["response"].strip())
-        print("----------------------------")
+        test_full_response = ""
+        for chunk in test_response_stream:
+            if "response" in chunk:
+                print(chunk["response"], end="", flush=True)
+                test_full_response += chunk["response"]
+        print("\n----------------------------")
         print(f"Ollama '{base_model}' model seems accessible.")
 
     except ollama.ResponseError as e:
