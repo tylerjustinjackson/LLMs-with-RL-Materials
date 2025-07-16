@@ -24,11 +24,12 @@ This codebase relies on [Ollama](https://ollama.com) to run LLMs locally. **You 
 
 ### 2. **Set Up Your Python Environment**
 
-We recommend using [conda](https://docs.conda.io/en/latest/) for environment management. To set up all dependencies:
+We recommend using a virtual environment for Python. To install all dependencies, run:
 
 ```sh
-conda env create -f requirements.yaml
-conda activate llm-env
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+pip install -r requirements.txt
 ```
 
 ---
